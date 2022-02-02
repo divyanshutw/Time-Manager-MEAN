@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Add Category</h2>
+<mat-dialog-content>
+    <form [formGroup]="addCategoryForm" (ngSubmit)="onClickSubmit()">
+        <div class="form-floating-mb-3 form-group">
+            <label for="category">Category name</label>
+            <input type="text" class="form-control" id="category" required formControlName="category" name="category" for="category">
+        </div>
+        <div *ngIf="!category.valid && (category.touched)">
+            <div [hidden]="!category.errors.required" class="invalid">
+                Category name required
+            </div>
+        </div>
+        <br><br>
+
+        <!-- <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Save category" name="submit">
+        </div> -->
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-danger" mat-dialog-close >Close</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" mat-dialog-close  (click)="onClickSubmit()">Add</button>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</mat-dialog-actions>

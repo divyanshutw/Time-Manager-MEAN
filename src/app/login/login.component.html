@@ -1,0 +1,145 @@
+
+
+
+<div class="page-holder align-items-center py-4 bg-gray-100 vh-100">
+    
+    <div class="container ">
+        
+        <div class="row align-items-center">
+            <div class="col-lg-6 px-lg-4 mx-auto" *ngIf="userlogin">
+                <div class="card ">
+                    
+                    <div class="card-body p-lg-5">
+                        <div class="d-flex flex-row-reverse">
+                            <button type="button" class="btn btn-secondary p-2" aria-label="Close" (click)="onClickClose($event)">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                        <h3 class="mb-4">Please login</h3>
+                        
+                        <form [formGroup]="loginForm1" id="loginForm1">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="floatingInput" type="email"
+                                    placeholder="name@example.com" required formControlName="loginEmail" for="loginEmail" name="loginEmail">
+                                <label for="floatingInput">Email address</label>
+                            </div>
+
+                            <div *ngIf="!loginEmail.valid && (loginEmail.touched)">
+                                <div [hidden]="!loginEmail.errors.required" class="invalid">
+                                    email required
+                                </div>
+                                <div [hidden]="!loginEmail.errors.email" class="invalid">
+                                    Invalid email
+                                </div>
+                            </div>
+                            
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="floatingPassword" type="password" placeholder="Password"
+                                    required formControlName="loginPassword" for="loginPassword" name="loginPassword">
+                                <label for="floatingPassword">Password</label>
+                            </div>
+
+                            <div *ngIf="!loginPassword.valid && (loginPassword.touched)">
+                                <div [hidden]="!loginPassword.errors.required" class="invalid">Password required</div>
+                                <div [hidden]="!loginPassword.errors.pattern" class="invalid">Invalid password</div>
+                            </div>
+
+                            <div class="invalid">{{loginMsg}}</div>
+
+                            <div *ngIf="wrongEmailPassword">Wrong Email or password</div>
+                            
+                            <button class="btn btn-primary" type="button" (click)="onClickLogin($event)" [disabled]="!loginForm1.valid">Login</button>
+                        </form>
+                    </div>
+                    <div class="card-footer px-lg-5 py-lg-4">
+                        <div class="text-sm text-muted">Don't have an account? <a
+                                (click)="user_register()">Register</a>.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- register -->
+            <div class="col-lg-6 px-lg-4 mx-auto" *ngIf="userregister">
+                <div class="card">
+                    
+                    <div class="card-body p-lg-5">
+                        <div class="d-flex flex-row-reverse">
+                            <button type="button" class="btn btn-secondary p-2" aria-label="Close" (click)="onClickClose($event)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <h3 class="mb-4">Register yourself</h3>
+                        <p class="text-muted text-sm mb-5">Password should be minimum 8 characters long, should have atleast one lowercase, one uppercase, one digit and one special character.</p>
+                        <form [formGroup]="registerForm" (ngSubmit)="onClickRegister()">                            
+                            <div class="form-floating mb-3 form-group">
+                                <input class="form-control" id="fullname" type="text" placeholder="name@example.com" required formControlName="fullname" for="fullname" name="fullname">
+                                <label for="fullname">Full Name</label>
+                            </div>
+
+                            <div *ngIf="!fullname?.valid && (fullname?.touched)">
+                            
+                                <div [hidden]="!fullname.errors.required" class="invalid">
+                                    fullname required {{registerForm.fullname}}
+                                </div>
+                                <div [hidden]="!fullname.errors.minlength" class="invalid">
+                                    minimum length is 8
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-3 form-group">
+                                <input class="form-control" id="email" type="email"
+                                    placeholder="name@example.com" required formControlName="email" for="email" name="email">
+                                <label for="floatingInput">Email address</label>
+                            </div>
+                            
+                            <div *ngIf="!email.valid && (email.touched)">
+                                <div [hidden]="!email.errors.required" class="invalid">
+                                    email required
+                                </div>
+                                <div [hidden]="!email.errors.email" class="invalid">
+                                    Invalid email
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-3 form-group">
+                                <input class="form-control" id="password" type="password" placeholder="Password"
+                                    required formControlName="password" for="password" name="password">
+                                <label for="floatingPassword">Password</label>
+                            </div>
+
+                            <div *ngIf="!password.valid && (password.touched)">
+                                <div [hidden]="!password.errors.required" class="invalid">Password required</div>
+                                <div [hidden]="!password.errors.pattern" class="invalid">Invalid password</div>
+                            </div>
+
+                            <div class="form-floating mb-3 form-group">
+                                <input class="form-control" id="confirmPassword" type="password" placeholder="Password" required formControlName="confirmPassword"
+                                    for="confirmPassword" name="confirmPassword">
+                                <label for="confirmPassword">Confirm Password</label>
+                            </div>
+                            
+                            <div *ngIf="!confirmPassword.valid && (confirmPassword.touched)">
+                                <!-- <div [hidden]="confirmPasswordMatches" class="invalid">Passwords do not match</div> -->
+                                <div [hidden]="!confirmPassword.errors.required" class="invalid">Password required</div>
+                                <div [hidden]="!confirmPassword.errors.pattern" class="invalid">Invalid password</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <!-- <button class="btn btn-primary" id="regidter" type="button"
+                                    name="registerSubmit" (click)="onClickRegister($event)">Register</button> -->
+                                <input class="btn btn-primary" type="submit" value="Register" name="submit" [disabled]="!registerForm.valid">
+                            </div>
+                        <!-- </div> -->
+                        </form>
+                    </div>
+                    <div class="card-footer px-lg-5 py-lg-4">
+                        <div class="text-sm text-muted">Already have an account? <a (click)="user_login()">Login</a>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<!-- <mat-card class="task-container">
+    <mat-list>
+        <mat-card class="task-item-container" *ngFor="let task of tasks">
+            <mat-list-item  [ngClass]="{'strike':task.status==2}">{{task.title}}</mat-list-item>
+            <mat-checkbox (click)="changeStatus(task)"></mat-checkbox>
+            <svg (click)="deleteTask(task)" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" /> 
+            </svg>-->
+            <!-- <svg *ngIf="task.status == 2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                    d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z" />
+            </svg> -->
+        <!--</mat-card>
+    </mat-list>
+</mat-card> -->
+<ng-template #list_heading  >No todos!!!</ng-template>
+<div class="card mt-2" style="background-color:aqua">
+    <div class="card-header" *ngIf="!(tasks.length==0); else list_heading">
+        Today's todos
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item container" *ngFor="let task of tasks" [ngClass]="{'strike':task.status==2}">
+                <div class="row">
+                    <div class="col-10">
+                        {{task.title}}
+                    </div>
+                    <div class="form-check col-1">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="changeStatus(task)">
+                        <!-- <label class="form-check-label" for="flexCheckDefault">
+                            Default checkbox
+                        </label> -->
+                    </div>
+                        <svg class="col-1" (click)="deleteTask(task)" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                        </svg>
+                </div>
+            
+        </li>
+    </ul>
+</div>
+
+
+
+        
+        

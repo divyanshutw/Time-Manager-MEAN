@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>Add Task</h2>
+<mat-dialog-content>
+    <form [formGroup]="addTaskForm" (ngSubmit)="onClickSubmit()">
+        <div class="form-floating-mb-3 form-group">
+            <input type="text" class="form-control" id="taskTitle" required formControlName="taskTitle" name="taskTitle" for="taskTitle" placeholder="Task Title" [(ngModel)]="newTask.title">
+        </div>
+        <div *ngIf="!taskTitle.valid && (taskTitle.touched)">
+            <div [hidden]="!taskTitle.errors.required" class="invalid">
+                Task Title required
+            </div>
+        </div>
+        <br>
+
+        <div class="form-floating-mb-3 form-group">
+            <select class="custom-select" id="taskCategory" formControlName="taskCategory" name="taskCategory"
+            for="taskCategory">
+            <option value="" disbaled>Choose category</option>
+            <option *ngFor="let cat of categories" [ngValue]="cat">{{cat.categoryTitle}}</option>
+            </select>
+        </div>
+        <div *ngIf="!taskCategory.valid && (taskCategory.touched)">
+            <div [hidden]="!taskCategory.errors.required" class="invalid">
+                Task Category required
+            </div>
+        </div>
+        <br>
+
+
+        <div class="form-floating-mb-3 form-group">
+            <input type="text" class="form-control" id="taskDescription" required formControlName="taskDescription" name="taskDescription"
+                for="taskDescription" placeholder="Task Description"  [(ngModel)]="newTask.description">
+        </div>
+        <div *ngIf="!taskDescription.valid && (taskDescription.touched)">
+            <div [hidden]="!taskDescription.errors.required" class="invalid">
+                Task Description required
+            </div>
+        </div>
+        <br>
+
+
+        <div class="form-floating-mb-3 form-group">
+            <input type="datetime-local" class="form-control" id="expectedCompletionTime" required formControlName="expectedCompletionTime"
+                name="expectedCompletionTime" for="expectedCompletionTime" (input)="timeChange($event)">
+        </div>
+        <div class="invalid">
+            {{timeError}}
+        </div>
+        <br>
+
+
+
+        <div class="form-floating-mb-3 form-group">
+            <input type="text" class="form-control" id="priority" required formControlName="priority"
+                name="priority" for="priority" placeholder="Task Priority(Numeric)"  [(ngModel)]="newTask.priority">
+        </div>
+        <div *ngIf="!priority.valid && (priority.touched)">
+            <div [hidden]="!priority.errors.required" class="invalid">
+                Priority required
+            </div>
+            <div [hidden]="!priority.errors.pattern" class="invalid">
+                Priority should be numeric
+            </div>
+        </div>
+        <br>
+
+        
+
+
+        <!-- <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Save category" name="submit">
+        </div> -->
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-danger" mat-dialog-close>Close</button>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-success" mat-dialog-close (click)="onClickSubmit()" [disabled]="!addTaskForm.valid || timeError.length!=0">Start Task</button>
+            </div>
+        </div>
+    </div>
+
+
+
+</mat-dialog-actions>

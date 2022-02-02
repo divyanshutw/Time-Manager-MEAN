@@ -1,0 +1,184 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 p-2"><h4>{{member.name | uppercase}}</h4></div>
+        <div class="col-md-4">
+            <button class="btn btn-primary m-2" (click)="onClickAddTask()">Add Task</button>
+            <button class="btn btn-primary m-2" (click)="onClickAddCategory()">Add Category</button>
+        </div>
+    </div>
+
+    <br><br>
+    <div class="row underline">
+        <h5>Active tasks</h5>
+    </div>
+
+    <br><br>
+
+    <div class="row" *ngIf="activeTasks.length==0">
+        <div class="no-active-tasks">
+            You don't have any active tasks. Relax!!!
+        </div>
+    </div>
+
+    <div class="row" *ngIf="activeTasks.length!=0">
+        <table mat-table matSort [dataSource]='activeTasksDataSource'>
+            <ngcontainer matColumnDef="id">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ngcontainer>
+        
+            <ngcontainer matColumnDef="title">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let element">{{element.title}}</td>
+            </ngcontainer>
+        
+            <ngcontainer matColumnDef="category">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Category</th>
+                <td mat-cell *matCellDef="let element">{{element.category}}</td>
+            </ngcontainer>
+        
+            <ngcontainer matColumnDef="description">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let element">{{element.description}}</td>
+            </ngcontainer>
+        
+            <ngcontainer matColumnDef="startTime">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Start Time</th>
+                <td mat-cell *matCellDef="let element">{{element.startTime | date:'YYYY/MM/dd hh:mm'}}</td>
+            </ngcontainer>
+        
+            <ngcontainer matColumnDef="endTime">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>End Task</th>
+                <td mat-cell *matCellDef="let element">
+                    <button class="btn btn-danger btn-sm" (click)="endTask(element)">End</button>
+                </td>
+            </ngcontainer>
+        
+            <ngcontainer matColumnDef="expectedCompletionTime">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Expected Completion Time</th>
+                <td mat-cell *matCellDef="let element">{{element.expectedCompletionTime | date:'YYYY/MM/dd hh:mm'}}</td>
+            </ngcontainer>
+        
+            <ngcontainer matColumnDef="status">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">{{element.status}}</td>
+            </ngcontainer>
+        
+            <ngcontainer matColumnDef="priority">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Priority</th>
+                <td mat-cell *matCellDef="let element">{{element.priority}}</td>
+            </ngcontainer>
+        
+            <ngcontainer matColumnDef="efficiency">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element"></td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="edit">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Edit</th>
+                <td mat-cell *matCellDef="let element">
+                    <button (click)="editActiveTask(element)" class="round-button"><i class="fa fa-edit" style="font-size:24px"></i></button>
+                </td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="delete">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Delete</th>
+                <td mat-cell *matCellDef="let element">
+                    <button (click)="deleteActiveTask(element)" class="round-button"><i class="fa fa-trash"></i></button>
+                </td>
+            </ngcontainer>
+        
+            <tr mat-header-row *matHeaderRowDef="activeTasksDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let rows;columns:activeTasksDisplayedColumns;"></tr>
+        </table>
+    </div>
+
+    <br><br>
+
+    <div class="row underline">
+        <h5>Completed tasks</h5>
+    </div>
+
+    <br><br>
+    <div class="row">
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Search" (keyup)="filterData($event)">
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <table mat-table matSort [dataSource]='completedTasksDataSource'>
+            <ngcontainer matColumnDef="id">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="title">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let element">{{element.title}}</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="category">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Category</th>
+                <td mat-cell *matCellDef="let element">{{element.category}}</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="description">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let element">{{element.description}}</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="startTime">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Start Time</th>
+                <td mat-cell *matCellDef="let element">{{element.startTime | date:'YYYY/MM/dd hh:mm'}}</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="endTime">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>End Time</th>
+                <td mat-cell *matCellDef="let element">{{element.endTime | date:'YYYY/MM/dd hh:mm'}}</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="expectedCompletionTime">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Expected Completion Time</th>
+                <td mat-cell *matCellDef="let element">{{element.expectedCompletionTime | date:'YYYY/MM/dd hh:mm'}}</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="status">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">{{element.status}}</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="priority">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Priority</th>
+                <td mat-cell *matCellDef="let element">{{element.priority}}</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="efficiency">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Efficiency</th>
+                <td mat-cell *matCellDef="let element">{{element.efficiency}}%</td>
+            </ngcontainer>
+
+            <ngcontainer matColumnDef="delete">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>Delete</th>
+                <td mat-cell *matCellDef="let element">
+                    <button (click)="deleteCompletedTask(element)" class="round-button"><i class="fa fa-trash"></i></button>
+                </td>
+            </ngcontainer>
+
+            <tr mat-header-row *matHeaderRowDef="completedTasksDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let rows;columns:completedTasksDisplayedColumns;"></tr>
+        </table>
+
+    </div>
+
+    <div class="row">
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]=[2,3,5]></mat-paginator>
+    </div>
+
+</div>
+
+
+
+
+
+

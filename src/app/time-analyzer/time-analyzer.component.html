@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2" *ngIf="showSidebar &&  isAdmin">
+            <div class="sidebar" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <!-- <span *ngFor="let member of members" (click)="memberClicked()">Harish</span> -->
+                            <h5 class="text-primary" *ngFor="let member of memberArr"
+                                (click)="showMemberData(member.id,member.name)">{{member.name}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10">
+            <button type="button" id="sidebarCollapse" class="btn btn-info" *ngIf="isAdmin" (click)="toggleSidebar()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            
+            </button>
+            <app-dash [member]="currentMember"></app-dash>
+        </div>
+    </div>
+
+
+</div>
+
+

@@ -1,0 +1,56 @@
+<!-- <div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <div class="sidebar" *ngIf="isAdmin">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            
+                            <h5 class="text-primary" *ngFor="let member of memberArr" (click)="showMemberData(member.id,member.name)">{{member.name}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10">
+                <app-time-tracker-task-list [member]="currentMember" ></app-time-tracker-task-list>
+        </div>
+    </div>
+    
+
+</div> -->
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar" *ngIf="showSidebar &&  isAdmin">
+        <!-- <div class="sidebar-header">
+            <h3>Bootstrap Sidebar</h3>
+        </div>-->
+
+        <ul class="list-elements components">
+            <!-- <p>Time Tracker</p> -->
+            <li>
+                <h5 class="text-primary" *ngFor="let member of memberArr" (click)="showMemberData(member.id,member.name)">{{member.name}}</h5>
+            </li> 
+        </ul> 
+    </nav>
+
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+    
+                <button type="button" id="sidebarCollapse" class="btn btn-info" *ngIf="isAdmin" (click)="toggleSidebar()">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    
+                </button>
+    
+            </div>
+        </nav>
+        <app-time-tracker-task-list [member]="currentMember"></app-time-tracker-task-list>
+    </div>
+
+</div>

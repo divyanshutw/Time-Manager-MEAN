@@ -1,0 +1,20 @@
+.task-container{
+    background-color: darkblue;
+    margin-top: 1rem;
+}
+.task-item-container{
+    display:flex;
+}
+.task-item-container{
+    padding:5px;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    margin:5px;
+}
+
+.strike{
+    text-decoration: line-through;
+    color:green;
+}
+

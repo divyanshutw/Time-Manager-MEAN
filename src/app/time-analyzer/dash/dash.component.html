@@ -1,0 +1,40 @@
+<!--dash.component.html-->
+<div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="{{ ( cardLayout | async )!.columns }}" rowHeight="200px">
+    <!--Mini Cards-->
+    <!-- <mat-grid-tile *ngFor="let i of [1, 2, 3, 4]" [colspan]="( cardLayout | async )!.miniCard.cols"
+      [rowspan]="( cardLayout | async )!.miniCard.rows">
+      <app-card title="Card {{i}}">
+        <div>Mini Card Content Here</div>
+      </app-card>
+    </mat-grid-tile> -->
+    <!--Charts-->
+
+    <mat-grid-tile [colspan]="( cardLayout | async )!.chart.cols"
+      [rowspan]="( cardLayout | async )!.chart.rows">
+      <app-card title="Efficiency">
+        <app-efficiency-chart></app-efficiency-chart>
+      </app-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="( cardLayout | async )!.chart.cols" [rowspan]="( cardLayout | async )!.chart.rows">
+      <app-card title="Total hours">
+        <app-total-hours-chart></app-total-hours-chart>
+      </app-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="( cardLayout | async )!.chart.cols" [rowspan]="( cardLayout | async )!.chart.rows">
+      <app-card title="Total tasks done">
+        <app-total-tasks-chart></app-total-tasks-chart>
+      </app-card>
+    </mat-grid-tile>
+
+    <!--Table-->
+    <!-- <mat-grid-tile [colspan]="( cardLayout | async )!.table.cols" [rowspan]="( cardLayout | async )!.table.rows">
+      <app-card title="Card 9">
+        <app-total-hours-chart>
+      </app-card>
+    </mat-grid-tile>-->
+  </mat-grid-list> 
+  </div>

@@ -1,0 +1,38 @@
+<style>
+  .navbar-color{
+    color:aqua;
+  }
+</style>
+
+<ng-template #login_content>Login / SignUp</ng-template>
+
+
+<nav *ngIf="!showLoginComponent" class="navbar navbar-expand-sm bg-dark">
+  <div class="container-fluid">
+    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isUserLoggedIn">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="home" routerLinkActive="active" style="color:aqua" >Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="todos" routerLinkActive="active" style="color:aqua">Todos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="time-tracker" routerLinkActive="active" style="color:aqua">Time Tracker</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="time-analyzer" routerLinkActive="active" style="color:aqua">Time Analyzer</a>
+        </li>
+      </ul>
+        <button  class=" d-flex btn btn-primary"  type="submit" (click)="onClickLoginLogout($event)">
+          <div *ngIf="isUserLoggedIn; else login_content">LogOut</div>
+        </button>
+    <!-- </div> -->
+  </div>
+</nav>
+
+<app-login *ngIf="showLoginComponent" (closeLogin)="onClickCloseLogin($event)" (loginSuccess)="loginUser()"></app-login>
+
+<app-home *ngIf="showHomeComponent && !isUserLoggedIn"></app-home>
+
+<router-outlet *ngIf="isUserLoggedIn"></router-outlet> <!-- Need it for letting that component know that routing is part of this file -->
